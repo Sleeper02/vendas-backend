@@ -1,18 +1,20 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import type { CreateUserDto } from './dtos/createUser.dto';
+import { User } from './interface/user.interface';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
+
   @Post()
-  async createUser(@Body() createUser: CreateUserDto) {
-    return {
-      ...createUser, //isso daqui serve para eu ver o que eu enviei no postman
-      password: undefined, //isso daqui serve para eu n mostrar a senha no postman
-    };
+  async createUser(@Body() createUser: CreateUserDto): Promise<User> {
+    return this.userService.createUser(createUser);
   }
 
   @Get()
-  async getAllUsers() {
-    return JSON.stringify({ test: 'abc' }); //Por causa do return ele me mostra o json no postman
+  async getAllUsers(): Promise<User[]> {
+    //Toda a lógica de negócio deve estar no service
+    return this.userService.getAllUsers();
   }
 }
