@@ -1,8 +1,18 @@
-export interface CreateUserDto {
-  //Esse interface serve para definir o formato do objeto que sera recebido na requisicao
+import { IsString } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
   name: string;
+
+  @IsString()
   email: string;
+
+  @IsString()
   phone: string;
+
+  @IsString()
   cpf: string;
+
+  @IsString()
   password: string;
 }
