@@ -16,5 +16,6 @@ import { CityEntity } from './entities/city.entity';
   ], //Sempre que eu quiser usar um repositório do TypeORM em um módulo, eu tenho que importar o TypeOrmModule e usar o forFeature
   controllers: [CityController],
   providers: [CityService],
+  exports: [CityService],
 })
 export class CityModule {}
