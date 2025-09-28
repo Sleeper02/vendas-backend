@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadGatewayException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { hash } from 'bcrypt';
 import { Repository } from 'typeorm';
@@ -15,6 +19,13 @@ export class UserService {
     //Tenho que usar o promise pq a funcao eh assincrona
     const salOrRounds = 10;
     const passwordhash = await hash(createUserDto.password, salOrRounds); //O await faz com que a funcao espere o hash ser gerado
+    const user = await this.findUserByEmail(createUserDto.email).catch(
+      () => undefined,
+    );
+
+    if (user) {
+      throw new BadGatewayException('Email already registered');
+    }
 
     return this.userRepository.save({
       ...createUserDto,

@@ -15,7 +15,7 @@ export class AddressController {
   async createAddress(
     @Body()
     createAddressDto: CreateAddressDto,
-    @UserId() userId: number, //Usando o Param pq é um dado que vem na URL
+    @UserId() userId: number, //Usando o @UserID agr pois tem o token
   ): Promise<AddressEntity> {
     return this.addressService.createAddress(createAddressDto, userId);
   }
