@@ -1,7 +1,9 @@
+import { CityEntity } from 'src/city/entities/city.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -12,6 +14,9 @@ export class StateEntity {
 
   @Column({ name: 'name', nullable: false })
   name: string;
+
+  @OneToMany(() => CityEntity, (city) => city.state)
+  cities?: CityEntity[];
 
   //Serve pra ver quando o registro foi criado e atualizado
   @CreateDateColumn({ name: 'created_at' })

@@ -1,7 +1,9 @@
+import { AddressEntity } from 'src/address/entities/address.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -27,6 +29,9 @@ export class UserEntity {
 
   @Column({ name: 'type_user', nullable: false })
   typeUser: number;
+
+  @OneToMany(() => AddressEntity, (address) => address.user)
+  addresses?: AddressEntity[];
 
   //Serve pra ver quando o registro foi criado e atualizado
   @CreateDateColumn({ name: 'created_at' })
